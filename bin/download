@@ -15,13 +15,22 @@ release_file="$ASDF_DOWNLOAD_PATH/$TOOL_NAME-$ASDF_INSTALL_VERSION.tar.gz"
 # Download tar.gz file to the download directory
 download_release "$ASDF_INSTALL_VERSION" "$release_file"
 
+case "$platform" in
+linux) tar -xzf "$release_file" -C "$ASDF_DOWNLOAD_PATH" \
+  --wildcards "*opt/osquery/bin/osqueryd" \
+  --transform='s/.*opt\/osquery\/bin\/osqueryd/bin\/osqueryi/' ||
+  fail "Could not extract $release_file" ;;
+macos)
+  mkdir -p "${ASDF_DOWNLOAD_PATH}/bin"
+  tar -xzf "$release_file" -C "${ASDF_DOWNLOAD_PATH}/bin" \
+    -s '/.*/osqueryi/' ||
+    fail "Could not extract $release_file"
+  ;;
+esac
+
 # Extract contents of tar.gz file into the download directory
 # just extract osqueryd binary
-# and rename it to osqueryi
-tar -xzf "$release_file" -C "$ASDF_DOWNLOAD_PATH" \
-  --wildcards  "*/osqueryd" \
-  --transform='s/.*\/osqueryd/\/bin\/osqueryi/' \
-  || fail "Could not extract $release_file"
+# and rename it to bin/osqueryi
 
 # Remove the tar.gz file since we don't need to keep it
 rm "$release_file"
