@@ -47,7 +47,7 @@ download_release() {
   esac
 
   # Adapt the release URL convention for osqueryi
-  url="$GH_REPO/releases/download/${version}/osquery-${version}_1.${platform}.tar.gz"
+  url="$GH_REPO/releases/download/${version}/osquery-${version}_1.${platform}_x86_64.tar.gz"
 
   echo "* Downloading $TOOL_NAME release $version..."
   curl "${curl_opts[@]}" -o "$filename" -C - "$url" || fail "Could not download $url"
