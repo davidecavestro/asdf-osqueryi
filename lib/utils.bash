@@ -2,8 +2,8 @@
 
 set -euo pipefail
 
-# TODO: Ensure this is the correct GitHub homepage where releases can be downloaded for osqueryi.
-GH_REPO="https://github.com/davidecavestro/osqueryi"
+# GitHub homepage where releases can be downloaded for osqueryi.
+GH_REPO="https://github.com/osquery/osquery"
 TOOL_NAME="osqueryi"
 TOOL_TEST="osqueryi --version"
 
@@ -41,8 +41,13 @@ download_release() {
   version="$1"
   filename="$2"
 
-  # TODO: Adapt the release URL convention for osqueryi
-  url="$GH_REPO/archive/v${version}.tar.gz"
+  case "$(uname -s)" in
+    Linux*) platform=linux ;;
+    Darwin*) platform=macos ;;
+  esac
+
+  # Adapt the release URL convention for osqueryi
+  url="$GH_REPO/releases/download/${version}/osquery-${version}_1.${platform}.tar.gz"
 
   echo "* Downloading $TOOL_NAME release $version..."
   curl "${curl_opts[@]}" -o "$filename" -C - "$url" || fail "Could not download $url"
@@ -61,7 +66,7 @@ install_version() {
     mkdir -p "$install_path"
     cp -r "$ASDF_DOWNLOAD_PATH"/* "$install_path"
 
-    # TODO: Asert osqueryi executable exists.
+    # Assert osqueryi executable exists.
     local tool_cmd
     tool_cmd="$(echo "$TOOL_TEST" | cut -d' ' -f1)"
     test -x "$install_path/bin/$tool_cmd" || fail "Expected $install_path/bin/$tool_cmd to be executable."
