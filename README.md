@@ -3,7 +3,7 @@
 # asdf-osqueryi [![Build](https://github.com/davidecavestro/asdf-osqueryi/actions/workflows/build.yml/badge.svg)](https://github.com/davidecavestro/asdf-osqueryi/actions/workflows/build.yml) [![Lint](https://github.com/davidecavestro/asdf-osqueryi/actions/workflows/lint.yml/badge.svg)](https://github.com/davidecavestro/asdf-osqueryi/actions/workflows/lint.yml)
 
 
-[osqueryi](https://github.com/davidecavestro/osqueryi) plugin for the [asdf version manager](https://asdf-vm.com).
+[osquery](https://github.com/osquery/osquery) interactive [shell](https://osquery.readthedocs.io/en/stable/introduction/using-osqueryi/) plugin for the [asdf version manager](https://asdf-vm.com).
 
 </div>
 
